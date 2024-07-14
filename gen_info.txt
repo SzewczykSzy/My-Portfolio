@@ -1,0 +1,63 @@
+Frontend
+React: A popular JavaScript library for building user interfaces. It's highly versatile and works well with other tools.
+Next.js: A React framework that provides server-side rendering and static site generation, enhancing performance and SEO.
+Tailwind CSS: A utility-first CSS framework that allows you to create a custom design quickly. It also has built-in dark mode support.
+Backend
+Node.js with Express.js: A powerful backend framework for creating RESTful APIs. It will handle the backend logic and database operations.
+Firebase: Free tier for hosting, authentication, and real-time database. Firebase can also handle static file hosting.
+Data Storage
+MongoDB Atlas: A free cloud-based NoSQL database service. It's highly scalable and works well with Node.js applications.
+Firebase Firestore: An alternative if you prefer to keep everything under the Firebase ecosystem.
+CI/CD
+GitHub Actions: Automate your workflows directly from GitHub, including CI/CD pipelines.
+Vercel: Perfect for deploying Next.js applications. It integrates seamlessly with GitHub and offers automatic deployments.
+Data Science Models
+TensorFlow.js: For running your TensorFlow models directly in the browser.
+Python (Flask or FastAPI): Serve more complex models via a REST API if they can't be run in the browser.
+Strava Integration
+Strava API: Access your Strava activities. You can fetch data periodically using GitHub Actions.
+Pixela: Use Pixela for creating and tracking progress graphs.
+Project Structure
+Home View: Introduction and navigation.
+About View: Information about you, your background, and skills.
+Stats View: Display stats from Kaggle, HackerRank, etc. Fetch this data using their respective APIs.
+CV View: Provide a link to your CV, which opens in a new tab.
+Projects View: Showcase your data science and other projects. Integrate TensorFlow models for demonstrations.
+Dark and White Mode
+Tailwind CSS: Provides an easy way to toggle between dark and light modes.
+Implementation Steps
+Initialize Repository
+
+Set up a GitHub repository with main and dev branches.
+Set up GitHub Actions for CI/CD.
+Set Up Frontend
+
+Initialize a Next.js project.
+Configure Tailwind CSS for styling.
+Implement navigation and views for Home, About, Stats, CV, and Projects.
+Implement dark/light mode toggle.
+Set Up Backend
+
+Set up an Express.js server.
+Integrate with MongoDB Atlas or Firebase Firestore for data storage.
+Create RESTful endpoints to fetch data from APIs (Kaggle, HackerRank, Strava).
+Integrate TensorFlow Models
+
+Use TensorFlow.js for models that can run in the browser.
+For more complex models, use Flask or FastAPI to serve them via REST APIs.
+Strava Integration
+
+Set up a GitHub Action to periodically fetch data from the Strava API and store it in your database.
+Use Pixela to display progress graphs.
+Deploy Application
+
+Deploy the frontend to Vercel.
+Deploy the backend to Heroku (free tier) or another free hosting service.
+Ensure CI/CD pipelines are correctly set up for automatic deployments on push.
+Testing
+
+Thoroughly test each component and the integration.
+Ensure the app works seamlessly in both dark and light modes.
+Documentation
+
+Write clear documentation for the project, including setup instructions and how to contribute.

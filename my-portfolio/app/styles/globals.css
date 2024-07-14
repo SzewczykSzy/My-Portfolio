@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --transition-duration: 200ms;
+}
+
+body {
+  transition: background-color var(--transition-duration) ease-in-out, color var(--transition-duration) ease-in-out;
+}
+
+.dark-mode-transition {
+  transition: background-color var(--transition-duration) ease-in-out, color var(--transition-duration) ease-in-out;
+}
+
+svg {
+  transition: fill var(--transition-duration) ease-in-out;
+}
