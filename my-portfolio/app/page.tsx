@@ -1,6 +1,33 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+const projects = [
+  {
+    id: 1,
+    title: "Project 1",
+    description: "This project is my thesis project: \"3D point cloud analysis for traffic situational awareness\". Project mainly consist of predicting dangerous situations on the road with pedestrians. Data are provided by Ouster OS1 LiDAR.",
+    image: "/projects/wynik.gif",
+    previewLink: "/projects/1",
+    githubLink: "#"
+  },
+  {
+    id: 2,
+    title: "Project 2",
+    description: "This project is my thesis project: \"3D point cloud analysis for traffic situational awareness\". Project mainly consist of predicting dangerous situations on the road with pedestrians. Data are provided by Ouster OS1 LiDAR.",
+    image: "/projects/wynik.gif",
+    previewLink: "/projects/2",
+    githubLink: "#"
+  },
+  {
+    id: 3,
+    title: "Project 3",
+    description: "This project is my thesis project: \"3D point cloud analysis for traffic situational awareness\". Project mainly consist of predicting dangerous situations on the road with pedestrians. Data are provided by Ouster OS1 LiDAR.",
+    image: "/projects/wynik.gif",
+    previewLink: "/projects/3",
+    githubLink: "#"
+  }
+];
+
 const Home = () => {
   return (
     <div className="container mx-auto p-8">
@@ -23,13 +50,13 @@ const Home = () => {
           </p>
           <ul className="list-disc list-inside text-left mt-4 space-y-2">
             <li>
-              Learn more <Link href="/about" className="text-blue-500"> About Me</Link> and my background.
+              Learn more <Link href="/about" legacyBehavior><a className="text-blue-500">About Me</a></Link> and my background.
             </li>
             <li>
-              Discover my recent <Link href="/projects" className="text-blue-500">Projects</Link>, including those related to data science and automation.
+              Discover my recent <Link href="/projects" legacyBehavior><a className="text-blue-500">Projects</a></Link>, including those related to data science and automation.
             </li>
             <li>
-              View my <Link href="/stats" className="text-blue-500">Stats</Link> from GitHub, HackerRank, Kaggle, and other platforms showcasing my skills and achievements.
+              View my <Link href="/stats" legacyBehavior><a className="text-blue-500">Stats</a></Link> from GitHub, HackerRank, Kaggle, and other platforms showcasing my skills and achievements.
             </li>
           </ul>
         </div>
@@ -40,19 +67,32 @@ const Home = () => {
       {/* Projects Section */}
       <section className="mb-8">
         <h2 className="text-2xl font-bold mb-4">Example Projects</h2>
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-xl font-semibold">Project 1 Title</h3>
-            <p>Description of project 1.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold">Project 2 Title</h3>
-            <p>Description of project 2.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold">Project 3 Title</h3>
-            <p>Description of project 3.</p>
-          </div>
+        <div className="grid gap-8 md:grid-cols-3">
+          {projects.map((project) => (
+            <div key={project.id} className="border rounded-lg p-4 shadow-md">
+              <div className="relative" style={{ width: '100%', height: '200px' }}>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  className="rounded-t-lg"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+              <p className="mt-4">{project.description}</p>
+              <div className="flex justify-between mt-4">
+                <Link href={project.previewLink} legacyBehavior>
+                  <a className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Project preview</a>
+                </Link>
+                <a href={project.githubLink} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">See on github</a>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-8">
+          <Link href="/projects" legacyBehavior>
+            <a className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">See more projects ...</a>
+          </Link>
         </div>
       </section>
 
@@ -64,52 +104,52 @@ const Home = () => {
         <div className="flex justify-center">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/python.svg" alt="Python" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/python.svg" alt="Python" width={64} height={64} />
               <p className="mt-2 font-semibold">Python</p>
               <p className="text-sm text-gray-600">Advanced: Numpy, Pandas, Matplotlib</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/html-css.svg" alt="HTML/CSS" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/html-css.svg" alt="HTML/CSS" width={64} height={64} />
               <p className="mt-2 font-semibold">HTML/CSS</p>
               <p className="text-sm text-gray-600">Intermediate</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/c-plus-plus.svg" alt="C/C++" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/c-plus-plus.svg" alt="C/C++" width={64} height={64} />
               <p className="mt-2 font-semibold">C/C++</p>
               <p className="text-sm text-gray-600">Basics</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/databases.svg" alt="Databases" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/databases.svg" alt="Databases" width={64} height={64} />
               <p className="mt-2 font-semibold">Databases</p>
               <p className="text-sm text-gray-600">Relational: MySQL, SQLite, PostgreSQL</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/web-framework.svg" alt="Web app framework" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/web-framework.svg" alt="Web app framework" width={64} height={64} />
               <p className="mt-2 font-semibold">Web app framework</p>
               <p className="text-sm text-gray-600">Intermediate: Flask</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/language.svg" alt="Language" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/language.svg" alt="Language" width={64} height={64} />
               <p className="mt-2 font-semibold">Language</p>
               <p className="text-sm text-gray-600">Polish: Native<br />English: B2</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/microsoft-office.svg" alt="Microsoft Office" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/microsoft-office.svg" alt="Microsoft Office" width={64} height={64} />
               <p className="mt-2 font-semibold">Microsoft Office</p>
               <p className="text-sm text-gray-600">Intermediate</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/machine-learning.svg" alt="Machine learning" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/machine-learning.svg" alt="Machine learning" width={64} height={64} />
               <p className="mt-2 font-semibold">Machine learning</p>
               <p className="text-sm text-gray-600">SKLearn, TensorFlow</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/ci-cd.svg" alt="CI/CD" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/ci-cd.svg" alt="CI/CD" width={64} height={64} />
               <p className="mt-2 font-semibold">CI/CD</p>
               <p className="text-sm text-gray-600">GitHub Actions</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/git.svg" alt="Git" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/git.svg" alt="Git" width={64} height={64} />
               <p className="mt-2 font-semibold">Git</p>
               <p className="text-sm text-gray-600">Version Control System</p>
             </div>
