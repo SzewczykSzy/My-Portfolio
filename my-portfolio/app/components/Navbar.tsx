@@ -3,8 +3,8 @@ import Link from 'next/link';
 const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void }) => {
   return (
     <nav className="bg-gray-200 dark:bg-gray-800 p-4 flex justify-between items-center">
-      <div className="text-xl font-bold">
-        <Link href="/">Simon's Portfolio</Link>
+      <div className="text-xl font-bold pl-4">
+        <Link href="/">Simon&apos;s Portfolio</Link>
       </div>
       <div className="flex items-center space-x-8">
         <ul className="flex space-x-8 text-lg">
