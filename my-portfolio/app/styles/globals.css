@@ -16,4 +16,5 @@ body {
 
 svg {
   transition: fill var(--transition-duration) ease-in-out;
+  fill: currentColor; /* Ensures SVG uses currentColor */
 }
