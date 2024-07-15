@@ -21,11 +21,16 @@ jobs:
         with:
           node-version: '14'  # Use the Node.js version you prefer
 
+      - name: Navigate to project directory
+        run: cd my-portfolio
+
       - name: Install dependencies
         run: npm install
+        working-directory: ./my-portfolio
 
       - name: Run build
         run: npm run build
+        working-directory: ./my-portfolio
 
       - name: Deploy to Vercel
         run: vercel --prod
@@ -33,3 +38,4 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        working-directory: ./my-portfolio
