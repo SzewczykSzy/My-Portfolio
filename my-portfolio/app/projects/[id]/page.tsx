@@ -1,22 +1,10 @@
+// Ensure to add a dark-mode class to the body element or a top-level wrapper element when toggling dark mode
+
 "use client";
 
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
-
-const projects = [
-  {
-    id: 1,
-    title: "3D point cloud analysis for traffic situational awareness",
-    description: "This project is my thesis project: \"3D point cloud analysis for traffic situational awareness\". Project mainly consist of predicting dangerous situations on the road with pedastrians. Data are provided by Ouster OS1 LiDAR.",
-    details: "The goal of this thesis project was to design an algorithm that performs detection of dangerous situations...",
-    technologies: ["Python", "Numpy", "Open-cv", "Ouster-sdk", "Roboflow", "YOLOv8", "Kalman Filter", "Ultralytics"],
-    image: "/projects/wynik.gif",
-    video: "/project-video.mp4",
-    githubLink: "#",
-    documentationLink: "#"
-  },
-
-];
+import projects from '../data/projectsData'; // Adjusted import path
 
 const ProjectDetailsPage = () => {
   const params = useParams();
@@ -28,35 +16,47 @@ const ProjectDetailsPage = () => {
   }
 
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8">{project.title}</h1>
-      <div className="mb-8">
-        <Image
-          src={project.image}
-          alt={project.title}
-          width={800}
-          height={400}
-          className="rounded-lg"
-        />
+    <div className="container mx-auto pt-5 text-center max-w-screen-lg px-8">
+      <h1 className="fw-light pb-5">{project.title}</h1>
+      {project.details.map((detail, index) => (
+        <div key={index} className="clearfix mb-5">
+          <div className={`float-${index % 2 === 0 ? 'end' : 'start'} mb-3 ms-md-3 detailed-image`}>
+            <Image
+              src={detail.image}
+              alt={`Detail ${index + 1}`}
+              width={400}
+              height={200}
+              className="detailed-image"
+            />
+          </div>
+          <p className="lead text-muted py-2" style={{ textAlign: 'left' }}>{detail.text}</p>
+        </div>
+      ))}
+      <div className="video-container">
+        <h4>{project.finalMedia.description}</h4>
+        {project.finalMedia.type === 'video' ? (
+          <video controls className="video-content">
+            <source src={project.finalMedia.src} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <Image
+            src={project.finalMedia.src}
+            alt="Final media"
+            className="img-fluid mb-3 px-5 rounded video-content"
+            width={800}
+            height={400}
+            style={{ objectFit: 'contain', width: '100%', height: '100%' }}
+          />
+        )}
       </div>
-      <div className="mb-8">
-        <p>{project.details}</p>
-        <video controls className="w-full mt-4">
-          <source src={project.video} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold">Technologies Used</h2>
-        <ul className="list-disc list-inside mt-2">
-          {project.technologies.map((tech, index) => (
-            <li key={index}>{tech}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="flex justify-between">
-        <a href={project.githubLink} className="border rounded px-4 py-2 hover:bg-gray-200">See on github</a>
-        <a href={project.documentationLink} className="border rounded px-4 py-2 hover:bg-gray-200">Documentation</a>
+      <div className="button-container d-flex justify-content-center pt-2 pb-5">
+        <a className="align-items-end mr-5 px-4" href={project.githubLink}>
+          <button type="button" className="btn custom-button">See on github ...</button>
+        </a>
+        <a className="align-items-end mr-5 px-4" href={project.documentationLink}>
+          <button type="button" className="btn custom-button">Documentation ...</button>
+        </a>
       </div>
     </div>
   );

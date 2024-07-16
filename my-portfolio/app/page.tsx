@@ -1,34 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
-const projects = [
-  {
-    id: 1,
-    title: "Project 1",
-    description: "This project is my thesis project: \"3D point cloud analysis for traffic situational awareness\". Project mainly consist of predicting dangerous situations on the road with pedestrians. Data are provided by Ouster OS1 LiDAR.",
-    image: "/projects/wynik.gif",
-    previewLink: "/projects/1",
-    githubLink: "#"
-  },
-  {
-    id: 2,
-    title: "Project 2",
-    description: "This project is my thesis project: \"3D point cloud analysis for traffic situational awareness\". Project mainly consist of predicting dangerous situations on the road with pedestrians. Data are provided by Ouster OS1 LiDAR.",
-    image: "/projects/wynik.gif",
-    previewLink: "/projects/2",
-    githubLink: "#"
-  },
-  {
-    id: 3,
-    title: "Project 3",
-    description: "This project is my thesis project: \"3D point cloud analysis for traffic situational awareness\". Project mainly consist of predicting dangerous situations on the road with pedestrians. Data are provided by Ouster OS1 LiDAR.",
-    image: "/projects/wynik.gif",
-    previewLink: "/projects/3",
-    githubLink: "#"
-  }
-];
+import projects from './projects/data/projectsData'; // Correct import path
 
 const Home = () => {
+  // Sort projects by ID in descending order and take the top 3
+  const recentProjects = projects.sort((a, b) => b.id - a.id).slice(0, 3);
+
   return (
     <div className="container mx-auto p-8">
       {/* Introduction Section */}
@@ -50,13 +27,13 @@ const Home = () => {
           </p>
           <ul className="list-disc list-inside text-left mt-4 space-y-2">
             <li>
-              Learn more <Link href="/about" legacyBehavior><a className="text-blue-500">About Me</a></Link> and my background.
+              Learn more <Link href="/about" className="text-blue-500"> About Me</Link> and my background.
             </li>
             <li>
-              Discover my recent <Link href="/projects" legacyBehavior><a className="text-blue-500">Projects</a></Link>, including those related to data science and automation.
+              Discover my recent <Link href="/projects" className="text-blue-500">Projects</Link>, including those related to data science and automation.
             </li>
             <li>
-              View my <Link href="/stats" legacyBehavior><a className="text-blue-500">Stats</a></Link> from GitHub, HackerRank, Kaggle, and other platforms showcasing my skills and achievements.
+              View my <Link href="/stats" className="text-blue-500">Stats</Link> from GitHub, HackerRank, Kaggle, and other platforms showcasing my skills and achievements.
             </li>
           </ul>
         </div>
@@ -66,33 +43,28 @@ const Home = () => {
 
       {/* Projects Section */}
       <section className="mb-8">
-        <h2 className="text-2xl font-bold mb-4">Example Projects</h2>
+        <h2 className="text-2xl font-bold mb-4">Recent Projects</h2>
         <div className="grid gap-8 md:grid-cols-3">
-          {projects.map((project) => (
-            <div key={project.id} className="border rounded-lg p-4 shadow-md">
-              <div className="relative" style={{ width: '100%', height: '200px' }}>
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  className="rounded-t-lg"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
+          {recentProjects.map((project, index) => (
+            <div key={index} className="border rounded-lg p-4 shadow-md">
+              <Image
+                src={project.image}
+                alt={project.title}
+                className="rounded-t-lg"
+                width={400}
+                height={200}
+                unoptimized
+              />
               <p className="mt-4">{project.description}</p>
               <div className="flex justify-between mt-4">
-                <Link href={project.previewLink} legacyBehavior>
-                  <a className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Project preview</a>
-                </Link>
-                <a href={project.githubLink} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">See on github</a>
+                <Link href={`/projects/${project.id}`} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Project preview</Link>
+                <a href={project.githubLink} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">See on GitHub</a>
               </div>
             </div>
           ))}
         </div>
         <div className="text-center mt-8">
-          <Link href="/projects" legacyBehavior>
-            <a className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">See more projects ...</a>
-          </Link>
+          <Link href="/projects" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">See more projects ...</Link>
         </div>
       </section>
 

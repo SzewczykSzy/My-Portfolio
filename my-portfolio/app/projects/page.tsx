@@ -8,7 +8,7 @@ const projects = [
     description: "This project is my thesis project: \"3D point cloud analysis for traffic situational awareness\". Project mainly consist of predicting dangerous situations on the road with pedastrians. Data are provided by Ouster OS1 LiDAR.",
     image: "/projects/wynik.gif",
     previewLink: "/projects/1",
-    githubLink: "#"
+    githubLink: "https://github.com/SzewczykSzy/Dangerous-situations-with-pedastrians/tree/main"
   },
   // Add more projects here if needed
 ];
@@ -33,7 +33,7 @@ const ProjectsPage = () => {
                 <Link href={project.previewLink} legacyBehavior>
                   <a className="border rounded px-4 py-2 hover:bg-gray-200">Project preview</a>
                 </Link>
-                <a href={project.githubLink} className="border rounded px-4 py-2 hover:bg-gray-200">See on github</a>
+                <a href={project.githubLink} target="_blank" className="border rounded px-4 py-2 hover:bg-gray-200">See on github</a>
               </div>
             </div>
           </div>
