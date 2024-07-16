@@ -12,7 +12,9 @@ const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void
             <Link href="/about">About</Link>
           </li>
           <li>
-            <Link href="/projects">Projects</Link>
+            <Link href="/projects" legacyBehavior>
+              <a className="mr-4">Projects</a>
+            </Link>
           </li>
           <li>
             <Link href="/stats">Stats</Link>

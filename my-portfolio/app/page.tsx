@@ -1,7 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import projects from './projects/data/projectsData'; // Correct import path
 
 const Home = () => {
+  // Sort projects by ID in descending order and take the top 3
+  const recentProjects = projects.sort((a, b) => b.id - a.id).slice(0, 3);
+
   return (
     <div className="container mx-auto p-8">
       {/* Introduction Section */}
@@ -39,20 +43,28 @@ const Home = () => {
 
       {/* Projects Section */}
       <section className="mb-8">
-        <h2 className="text-2xl font-bold mb-4">Example Projects</h2>
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-xl font-semibold">Project 1 Title</h3>
-            <p>Description of project 1.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold">Project 2 Title</h3>
-            <p>Description of project 2.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold">Project 3 Title</h3>
-            <p>Description of project 3.</p>
-          </div>
+        <h2 className="text-2xl font-bold mb-4">Recent Projects</h2>
+        <div className="grid gap-8 md:grid-cols-3">
+          {recentProjects.map((project, index) => (
+            <div key={index} className="border rounded-lg p-4 shadow-md">
+              <Image
+                src={project.image}
+                alt={project.title}
+                className="rounded-t-lg"
+                width={400}
+                height={200}
+                unoptimized
+              />
+              <p className="mt-4">{project.description}</p>
+              <div className="flex justify-between mt-4">
+                <Link href={`/projects/${project.id}`} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Project preview</Link>
+                <a href={project.githubLink} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">See on GitHub</a>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-8">
+          <Link href="/projects" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">See more projects ...</Link>
         </div>
       </section>
 
@@ -64,52 +76,52 @@ const Home = () => {
         <div className="flex justify-center">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/python.svg" alt="Python" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/python.svg" alt="Python" width={64} height={64} />
               <p className="mt-2 font-semibold">Python</p>
               <p className="text-sm text-gray-600">Advanced: Numpy, Pandas, Matplotlib</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/html-css.svg" alt="HTML/CSS" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/html-css.svg" alt="HTML/CSS" width={64} height={64} />
               <p className="mt-2 font-semibold">HTML/CSS</p>
               <p className="text-sm text-gray-600">Intermediate</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/c-plus-plus.svg" alt="C/C++" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/c-plus-plus.svg" alt="C/C++" width={64} height={64} />
               <p className="mt-2 font-semibold">C/C++</p>
               <p className="text-sm text-gray-600">Basics</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/databases.svg" alt="Databases" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/databases.svg" alt="Databases" width={64} height={64} />
               <p className="mt-2 font-semibold">Databases</p>
               <p className="text-sm text-gray-600">Relational: MySQL, SQLite, PostgreSQL</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/web-framework.svg" alt="Web app framework" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/web-framework.svg" alt="Web app framework" width={64} height={64} />
               <p className="mt-2 font-semibold">Web app framework</p>
               <p className="text-sm text-gray-600">Intermediate: Flask</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/language.svg" alt="Language" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/language.svg" alt="Language" width={64} height={64} />
               <p className="mt-2 font-semibold">Language</p>
               <p className="text-sm text-gray-600">Polish: Native<br />English: B2</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/microsoft-office.svg" alt="Microsoft Office" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/microsoft-office.svg" alt="Microsoft Office" width={64} height={64} />
               <p className="mt-2 font-semibold">Microsoft Office</p>
               <p className="text-sm text-gray-600">Intermediate</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/machine-learning.svg" alt="Machine learning" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/machine-learning.svg" alt="Machine learning" width={64} height={64} />
               <p className="mt-2 font-semibold">Machine learning</p>
               <p className="text-sm text-gray-600">SKLearn, TensorFlow</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/ci-cd.svg" alt="CI/CD" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/ci-cd.svg" alt="CI/CD" width={64} height={64} />
               <p className="mt-2 font-semibold">CI/CD</p>
               <p className="text-sm text-gray-600">GitHub Actions</p>
             </div>
             <div className="flex flex-col items-center text-center">
-              <Image src="/icons/git.svg" alt="Git" width={64} height={64} className="dark:fill-white fill-black" />
+              <Image src="/icons/git.svg" alt="Git" width={64} height={64} />
               <p className="mt-2 font-semibold">Git</p>
               <p className="text-sm text-gray-600">Version Control System</p>
             </div>

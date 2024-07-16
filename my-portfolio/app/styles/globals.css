@@ -16,5 +16,77 @@ body {
 
 svg {
   transition: fill var(--transition-duration) ease-in-out;
-  fill: currentColor; /* Ensures SVG uses currentColor */
+  fill: currentColor;
+}
+
+.float-start {
+  float: left;
+  margin-right: 20px;
+}
+
+.float-end {
+  float: right;
+  margin-left: 20px;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.detailed-image {
+  max-width: 400px;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+.video-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.video-wrapper {
+  max-width: 800px;
+  width: 100%;
+}
+
+.video-content {
+  width: 100%;
+  max-width: 800px;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.custom-button {
+  border: 1px solid #6c757d; /* Lighter shade of gray for border */
+  padding: 10px 20px;
+  margin: 10px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  background-color: white;
+  color: #6c757d; /* Lighter text color */
+  border-radius: 5px;
+}
+
+.custom-button:hover {
+  background-color: #6c757d; /* Gray background on hover */
+  color: white;
+  border-color: #6c757d; /* Matching border color on hover */
+}
+
+/* Dark Mode Adjustments */
+body.dark-mode .custom-button {
+  background-color: #333; /* Dark background */
+  color: white; /* Light text color */
+  border-color: #555; /* Darker border color */
+}
+
+body.dark-mode .custom-button:hover {
+  background-color: #555; /* Lighter gray background on hover */
+  color: white;
+  border-color: #777; /* Matching border color on hover */
 }
