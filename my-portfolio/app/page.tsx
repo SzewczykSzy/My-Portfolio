@@ -1,13 +1,33 @@
+"use client";
+
+import { useState, useEffect } from 'react';
+import Navbar from './components/Navbar';
 import Image from 'next/image';
 import Link from 'next/link';
 import projects from './projects/data/projectsData'; // Correct import path
 
 const Home = () => {
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+  };
+
   // Sort projects by ID in descending order and take the top 3
   const recentProjects = projects.sort((a, b) => b.id - a.id).slice(0, 3);
 
   return (
-    <div className="container mx-auto p-8">
+    <div className={`container mx-auto p-8 ${theme}`}>
       {/* Introduction Section */}
       <section className="flex flex-col md:flex-row items-center md:items-start mb-8">
         <Image
@@ -57,14 +77,14 @@ const Home = () => {
               />
               <p className="mt-4">{project.description}</p>
               <div className="flex justify-between mt-4">
-                <Link href={`/projects/${project.id}`} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Project preview</Link>
-                <a href={project.githubLink} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">See on GitHub</a>
+                <Link href={`/projects/${project.id}`} className="border rounded px-4 py-2 hover:bg-gray-200">Project preview</Link>
+                <a href={project.githubLink} target="_blank" className="border rounded px-4 py-2 hover:bg-gray-200">See on GitHub</a>
               </div>
             </div>
           ))}
         </div>
         <div className="text-center mt-8">
-          <Link href="/projects" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">See more projects ...</Link>
+          <Link href="/projects" className="border rounded px-4 py-2 hover:bg-gray-200">See more projects ...</Link>
         </div>
       </section>
 

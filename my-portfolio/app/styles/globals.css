@@ -58,35 +58,26 @@ svg {
   max-width: 800px;
 }
 
-.button-container {
-  margin-top: 20px;
-}
-
-.custom-button {
-  border: 1px solid #6c757d; /* Lighter shade of gray for border */
+/* Button styles */
+button.btn {
+  border: 1px solid #ccc;
+  border-radius: 8px;
   padding: 10px 20px;
-  margin: 10px;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-  background-color: white;
-  color: #6c757d; /* Lighter text color */
-  border-radius: 5px;
+  background-color: transparent;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-.custom-button:hover {
-  background-color: #6c757d; /* Gray background on hover */
-  color: white;
-  border-color: #6c757d; /* Matching border color on hover */
+button.btn:hover {
+  background-color: #f0f0f0;
+  border-color: #aaa;
 }
 
-/* Dark Mode Adjustments */
-body.dark-mode .custom-button {
-  background-color: #333; /* Dark background */
-  color: white; /* Light text color */
-  border-color: #555; /* Darker border color */
+body.dark button.btn {
+  border-color: #555;
+  color: #fff;
 }
 
-body.dark-mode .custom-button:hover {
-  background-color: #555; /* Lighter gray background on hover */
-  color: white;
-  border-color: #777; /* Matching border color on hover */
+body.dark button.btn:hover {
+  background-color: #333;
+  border-color: #777;
 }
