@@ -44,6 +44,7 @@ jobs:
         run: pip install -r ./requirements.txt
         working-directory: ./api
 
+
       - name: Deploy backend to Vercel
         run: vercel --prod --confirm --token ${{ secrets.VERCEL_TOKEN }}
         env:
