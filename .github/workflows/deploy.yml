@@ -45,7 +45,7 @@ jobs:
         working-directory: ./api
 
       - name: Deploy backend to Vercel
-        run: vercel --prod --confirm --token ${{ secrets.VERCEL_TOKEN }} --project my-portfolio-backend
+        run: vercel --prod --confirm --token ${{ secrets.VERCEL_TOKEN }} --scope my-portfolio-backend-six
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         working-directory: ./api
