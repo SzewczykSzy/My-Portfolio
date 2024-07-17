@@ -38,10 +38,11 @@ jobs:
       - name: Set up Python for backend
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'  # Specify the appropriate Python version
+          python-version: '3.11'  # Specify the appropriate Python version
 
       - name: Install dependencies for backend
-        run: pip install -r ./api/requirements.txt
+        run: pip install -r ./requirements.txt
+        working-directory: ./api
 
       - name: Deploy backend to Vercel
         run: vercel --prod
