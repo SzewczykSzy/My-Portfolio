@@ -1,17 +1,8 @@
+// pages/projects.tsx
+
 import Image from 'next/image';
 import Link from 'next/link';
-
-const projects = [
-  {
-    id: 1,
-    title: "3D point cloud analysis for traffic situational awareness",
-    description: "This project is my thesis project: \"3D point cloud analysis for traffic situational awareness\". Project mainly consist of predicting dangerous situations on the road with pedastrians. Data are provided by Ouster OS1 LiDAR.",
-    image: "/projects/wynik.gif",
-    previewLink: "/projects/1",
-    githubLink: "https://github.com/SzewczykSzy/Dangerous-situations-with-pedastrians/tree/main"
-  },
-  // Add more projects here if needed
-];
+import projects from './data/projectsData'; // Adjust the path as necessary
 
 const ProjectsPage = () => {
   return (
@@ -26,6 +17,7 @@ const ProjectsPage = () => {
               width={400}
               height={200}
               className="rounded-t-lg"
+              unoptimized
             />
             <div className="p-4">
               <p className="text-md mb-2">{project.description}</p>
