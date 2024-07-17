@@ -19,17 +19,17 @@ const Stats = () => {
   const [maxCount, setMaxCount] = useState<number>(1);
 
   useEffect(() => {
-    fetch('https://my-portfolio-flax-chi-90.vercel.app/api/github_repos')
+    fetch('https://my-portfolio-backend-six.vercel.app/api/github_repos')
       .then((response) => response.json())
       .then((data) => setOverallStats(data))
       .catch((error) => console.error('Error fetching GitHub stats:', error));
 
-    fetch('https://my-portfolio-flax-chi-90.vercel.app/api/github_commits_prs')
+    fetch('https://my-portfolio-backend-six.vercel.app/api/github_commits_prs')
       .then((response) => response.json())
       .then((data) => setCommitsAndPrs(data))
       .catch((error) => console.error('Error fetching GitHub commits and PRs:', error));
 
-    fetch('https://my-portfolio-flax-chi-90.vercel.app/api/github_contributions')
+    fetch('https://my-portfolio-backend-six.vercel.app/api/github_contributions')
       .then((response) => response.json())
       .then((data) => {
         setContributions(data);
