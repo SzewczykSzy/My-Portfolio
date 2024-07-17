@@ -14,12 +14,16 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-calendar-heatmap": "^1.9.0",
+    "react-dom": "^18",
+    "react-tooltip": "^4.2.21"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-calendar-heatmap": "^1.6.7",
     "@types/react-dom": "^18",
+    "@types/react-tooltip": "^4.2.4",
     "autoprefixer": "^10.4.19",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
