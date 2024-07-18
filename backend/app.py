@@ -25,6 +25,7 @@ def fetch_github_repos():
         'repository_count': len(repos_data),
     }
 
+
 def fetch_github_contributions():
     headers = {
         'Authorization': f'bearer {GITHUB_TOKEN}'
