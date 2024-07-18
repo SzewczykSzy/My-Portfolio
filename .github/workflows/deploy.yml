@@ -21,19 +21,32 @@ jobs:
         with:
           node-version: '18.17.0'
 
-      - name: Navigate to project directory
-        run: cd my-portfolio
-
-      - name: Install dependencies
+      - name: Install dependencies for frontend
         run: npm install
         working-directory: ./my-portfolio
 
-      - name: Run build
+      - name: Run build for frontend
         run: npm run build
         working-directory: ./my-portfolio
 
-      - name: Deploy to Vercel
+      - name: Deploy frontend to Vercel
         run: vercel --prod
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         working-directory: ./my-portfolio
+
+      - name: Set up Python for backend
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'  # Specify the appropriate Python version
+
+      - name: Install dependencies for backend
+        run: pip install -r ./requirements.txt
+        working-directory: ./api
+
+
+      - name: Deploy backend to Vercel
+        run: vercel --prod --confirm --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        working-directory: ./api
