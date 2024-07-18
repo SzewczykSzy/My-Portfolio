@@ -4,6 +4,7 @@ import requests
 from datetime import datetime, timedelta
 import os
 
+
 app = Flask(__name__)
 CORS(app)
 
