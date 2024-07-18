@@ -11,6 +11,7 @@ CORS(app)
 GITHUB_USERNAME = 'SzewczykSzy'
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 
+
 def fetch_github_repos():
     headers = {
         'Accept': 'application/vnd.github.v3+json',
