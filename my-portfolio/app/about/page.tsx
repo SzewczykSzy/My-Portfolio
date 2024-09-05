@@ -33,7 +33,7 @@ const About = () => {
 
   useEffect(() => {
     // Fetch KOM data from the Strava KOMs API endpoint
-    fetch('http://127.0.0.1:5000/api/strava_koms')
+    fetch('https://my-portfolio-backend-flask.vercel.app/api/strava_koms')
       .then((response) => response.json())
       .then((data) => setKoms(data))
       .catch((error) => console.error('Error fetching Strava KOMs:', error));
@@ -41,7 +41,7 @@ const About = () => {
 
   useEffect(() => {
     // Fetch Last Activity data from the Strava API endpoint
-    fetch('http://127.0.0.1:5000/api/strava_last_activity')
+    fetch('https://my-portfolio-backend-flask.vercel.app/api/strava_last_activity')
       .then((response) => response.json())
       .then((data) => setLastActivity(data))
       .catch((error) => console.error('Error fetching last activity:', error));
