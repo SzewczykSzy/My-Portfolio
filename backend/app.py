@@ -15,6 +15,8 @@ CORS(app)
 GITHUB_USERNAME = 'SzewczykSzy'
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 
+client = Client()
+
 MY_STRAVA_CLIENT_ID = os.getenv('STRAVA_CLIENT_ID')
 MY_STRAVA_CLIENT_SECRET = os.getenv('STRAVA_CLIENT_SECRET')
 ATHLETE_ID = 41343981
@@ -100,8 +102,13 @@ def fetch_github_commits_and_prs():
     }
 
 def fetch_strava_koms():
-    client = Client()
-    
+    try:
+        with open('strava/access_token.pickle', 'rb') as f:
+            access_token = pickle.load(f)
+    except Exception as e:
+        print(f"Error loading access token: {e}")
+        return []
+
     with open('strava/access_token.pickle', 'rb') as f:
         access_token = pickle.load(f)
 
@@ -140,7 +147,12 @@ def fetch_strava_koms():
 
 
 def fetch_strava_last_activity():
-    client = Client()
+    try:
+        with open('strava/access_token.pickle', 'rb') as f:
+            access_token = pickle.load(f)
+    except Exception as e:
+        print(f"Error loading access token: {e}")
+        return {}
 
     with open('strava/access_token.pickle', 'rb') as f:
         access_token = pickle.load(f)
