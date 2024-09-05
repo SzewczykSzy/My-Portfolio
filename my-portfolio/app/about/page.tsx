@@ -162,6 +162,7 @@ const About = () => {
                 <table className="min-w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600">
                   <thead className="bg-gray-100 dark:bg-gray-800">
                     <tr>
+                      <th className="px-6 py-3 border-b dark:border-gray-600"></th>
                       <th className="px-6 py-3 border-b dark:border-gray-600">Name</th>
                       <th className="px-6 py-3 border-b dark:border-gray-600">Date</th>
                       <th className="px-6 py-3 border-b dark:border-gray-600">Distance</th>
@@ -172,6 +173,7 @@ const About = () => {
                   <tbody>
                     {koms.map((kom) => (
                       <tr key={kom.id} className="hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <td className="px-6 py-4 text-yellow-500 text-xl">👑</td>
                         <td className="px-6 py-4 text-blue-500 dark:text-blue-300">
                           <a href={`https://www.strava.com/activities/${kom.id}`} target="_blank" rel="noopener noreferrer">
                             {kom.name}

@@ -134,7 +134,7 @@ def fetch_strava_koms():
         name = kom.segment.name
         id_ = kom.segment.id
         dist = kom.segment.distance
-        elev = kom.segment.elevation_high - kom.segment.elevation_low
+        elev = round(kom.segment.elevation_high - kom.segment.elevation_low)
         minutes, seconds = divmod(kom.elapsed_time, 60)
         time_ = f"{minutes}:{seconds:02d}"
         date_ = kom.start_date_local.strftime('%b %d, %Y')
@@ -146,7 +146,7 @@ def fetch_strava_koms():
 
 def fetch_strava_last_activity():
     client = Client()
-    
+
     try:
         with open('strava/access_token.pickle', 'rb') as f:
             access_token = pickle.load(f)
