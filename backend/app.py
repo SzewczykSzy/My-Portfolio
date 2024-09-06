@@ -7,6 +7,8 @@ from stravalib.client import Client
 import pickle
 import time
 import pytz
+import redis
+import json
 
 
 app = Flask(__name__)
@@ -18,6 +20,18 @@ GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 MY_STRAVA_CLIENT_ID = os.getenv('STRAVA_CLIENT_ID')
 MY_STRAVA_CLIENT_SECRET = os.getenv('STRAVA_CLIENT_SECRET')
 ATHLETE_ID = 41343981
+
+REDIS_URL = os.getenv("REDIS_URL")
+REDIS_DB_PASSWORD = os.getenv("REDIS_DB_PASSWORD")
+
+
+redis_client = redis.Redis(host=REDIS_URL, port=11975, password=REDIS_DB_PASSWORD)
+
+
+def expires_to_seconds(expires_time_str):
+    expires_time = datetime.strptime(expires_time_str, '%Y-%m-%dT%H:%M:%SZ')
+    expires_seconds = expires_time.timestamp()
+    return expires_seconds
 
 
 def fetch_github_repos():
@@ -100,31 +114,42 @@ def fetch_github_commits_and_prs():
         'pr_count': pr_count
     }
 
+
+def store_token(token_data):
+    redis_client.set('strava_access_token', token_data['access_token'])
+    redis_client.set('strava_refresh_token', token_data['refresh_token'])
+    redis_client.set('strava_expires_at', str(expires_to_seconds(token_data['expires_at'])))
+
+
+def get_token():
+    access_token = redis_client.get('strava_access_token')
+    refresh_token = redis_client.get('strava_refresh_token')
+    expires_at = redis_client.get('strava_expires_at')
+
+    if access_token and refresh_token and expires_at:
+        return {
+            'access_token': access_token.decode('utf-8'),
+            'refresh_token': refresh_token.decode('utf-8'),
+            'expires_at': int(float(expires_at.decode('utf-8')))
+        }
+    return None
+
+
 def fetch_strava_koms():
     client = Client()
 
-    try:
-        with open('strava/access_token.pickle', 'rb') as f:
-            access_token = pickle.load(f)
-    except Exception as e:
-        print(f"Error loading access token: {e}")
-        return []
+    token_data = get_token()
 
-    if time.time() > access_token['expires_at']:
+    if not token_data or time.time() > token_data['expires_at']:
         refresh_response = client.refresh_access_token(client_id=MY_STRAVA_CLIENT_ID, 
-                                                client_secret=MY_STRAVA_CLIENT_SECRET, 
-                                                refresh_token=access_token['refresh_token'])
-        access_token = refresh_response
-        with open('strava/access_token.pickle', 'wb') as f:
-            pickle.dump(refresh_response, f)
+                                                       client_secret=MY_STRAVA_CLIENT_SECRET, 
+                                                       refresh_token=token_data['refresh_token'])
+        token_data = refresh_response
+        store_token(token_data)
 
-        client.access_token = refresh_response['access_token']
-        client.refresh_token = refresh_response['refresh_token']
-        client.token_expires_at = refresh_response['expires_at']
-    else:
-        client.access_token = access_token['access_token']
-        client.refresh_token = access_token['refresh_token']
-        client.token_expires_at = access_token['expires_at']
+    client.access_token = token_data['access_token']
+    client.refresh_token = token_data['refresh_token']
+    client.token_expires_at = token_data['expires_at']
 
     koms = list(client.get_athlete_koms(ATHLETE_ID))
     koms_dictionaries = []
@@ -147,28 +172,18 @@ def fetch_strava_koms():
 def fetch_strava_last_activity():
     client = Client()
 
-    try:
-        with open('strava/access_token.pickle', 'rb') as f:
-            access_token = pickle.load(f)
-    except Exception as e:
-        print(f"Error loading access token: {e}")
-        return {}
+    token_data = get_token()
 
-    if time.time() > access_token['expires_at']:
+    if not token_data or time.time() > token_data['expires_at']:
         refresh_response = client.refresh_access_token(client_id=MY_STRAVA_CLIENT_ID, 
-                                                client_secret=MY_STRAVA_CLIENT_SECRET, 
-                                                refresh_token=access_token['refresh_token'])
-        access_token = refresh_response
-        with open('strava/access_token.pickle', 'wb') as f:
-            pickle.dump(refresh_response, f)
+                                                       client_secret=MY_STRAVA_CLIENT_SECRET, 
+                                                       refresh_token=token_data['refresh_token'])
+        token_data = refresh_response
+        store_token(token_data)
 
-        client.access_token = refresh_response['access_token']
-        client.refresh_token = refresh_response['refresh_token']
-        client.token_expires_at = refresh_response['expires_at']
-    else:
-        client.access_token = access_token['access_token']
-        client.refresh_token = access_token['refresh_token']
-        client.token_expires_at = access_token['expires_at']
+    client.access_token = token_data['access_token']
+    client.refresh_token = token_data['refresh_token']
+    client.token_expires_at = token_data['expires_at']
 
     last_activity = list(client.get_activities(limit=1))[0]
 
@@ -220,3 +235,4 @@ def strava_last_activity():
 
 if __name__ == '__main__':
     app.run()
+    # store_token({'access_token':'7224f94e25204e2a4113134caca0dc213b6b84a5', 'refresh_token':'12b72327b05e92e08aae3ab86ea86ea61fa8ac6a', 'expires_at':'2024-09-06T12:46:22Z'})
