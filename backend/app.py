@@ -140,7 +140,7 @@ def fetch_strava_koms():
 
     token_data = get_token()
 
-    if not token_data or time.time() > expires_to_seconds(token_data['expires_at']):
+    if not token_data or time.time() > int(token_data['expires_at']):
         refresh_response = client.refresh_access_token(client_id=MY_STRAVA_CLIENT_ID, 
                                                        client_secret=MY_STRAVA_CLIENT_SECRET, 
                                                        refresh_token=token_data['refresh_token'])
@@ -174,7 +174,7 @@ def fetch_strava_last_activity():
 
     token_data = get_token()
 
-    if not token_data or time.time() > expires_to_seconds(token_data['expires_at']):
+    if not token_data or time.time() > int(token_data['expires_at']):
         refresh_response = client.refresh_access_token(client_id=MY_STRAVA_CLIENT_ID, 
                                                        client_secret=MY_STRAVA_CLIENT_SECRET, 
                                                        refresh_token=token_data['refresh_token'])
