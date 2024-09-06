@@ -31,7 +31,7 @@ redis_client = redis.Redis(host=REDIS_URL, port=11975, password=REDIS_DB_PASSWOR
 def expires_to_seconds(expires_time_str):
     expires_time = datetime.strptime(expires_time_str, '%Y-%m-%dT%H:%M:%SZ')
     expires_seconds = expires_time.timestamp()
-    return expires_seconds
+    return int(expires_seconds)
 
 
 def fetch_github_repos():
@@ -118,7 +118,7 @@ def fetch_github_commits_and_prs():
 def store_token(token_data):
     redis_client.set('strava_access_token', token_data['access_token'])
     redis_client.set('strava_refresh_token', token_data['refresh_token'])
-    redis_client.set('strava_expires_at', str(expires_to_seconds(token_data['expires_at'])))
+    redis_client.set('strava_expires_at', token_data['expires_at'])
 
 
 def get_token():
@@ -130,7 +130,7 @@ def get_token():
         return {
             'access_token': access_token.decode('utf-8'),
             'refresh_token': refresh_token.decode('utf-8'),
-            'expires_at': int(float(expires_at.decode('utf-8')))
+            'expires_at': expires_at.decode('utf-8')
         }
     return None
 
@@ -140,7 +140,7 @@ def fetch_strava_koms():
 
     token_data = get_token()
 
-    if not token_data or time.time() > token_data['expires_at']:
+    if not token_data or time.time() > expires_to_seconds(token_data['expires_at']):
         refresh_response = client.refresh_access_token(client_id=MY_STRAVA_CLIENT_ID, 
                                                        client_secret=MY_STRAVA_CLIENT_SECRET, 
                                                        refresh_token=token_data['refresh_token'])
@@ -174,7 +174,7 @@ def fetch_strava_last_activity():
 
     token_data = get_token()
 
-    if not token_data or time.time() > token_data['expires_at']:
+    if not token_data or time.time() > expires_to_seconds(token_data['expires_at']):
         refresh_response = client.refresh_access_token(client_id=MY_STRAVA_CLIENT_ID, 
                                                        client_secret=MY_STRAVA_CLIENT_SECRET, 
                                                        refresh_token=token_data['refresh_token'])
@@ -235,3 +235,4 @@ def strava_last_activity():
 
 if __name__ == '__main__':
     app.run()
+    
