@@ -235,4 +235,3 @@ def strava_last_activity():
 
 if __name__ == '__main__':
     app.run()
-    # store_token({'access_token':'7224f94e25204e2a4113134caca0dc213b6b84a5', 'refresh_token':'12b72327b05e92e08aae3ab86ea86ea61fa8ac6a', 'expires_at':'2024-09-06T12:46:22Z'})
