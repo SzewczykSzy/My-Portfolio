@@ -40,7 +40,7 @@ const Home = () => {
         <div className="text-center md:text-left mt-4 md:mt-0">
           <h1 className="text-3xl font-bold">Hi, I am Szymon! 👋</h1>
           <p className="text-lg mt-2">
-            I am a 4th-year student of Automation and Robotics with a specialization in Computer Science in Control and Management at the AGH University of Science and Technology in Krakow. My interests primarily lie in fields related to Data Science and Operational Research. This website hosts my portfolio and showcases more of my work.
+            I am a 5th-year student of Automation and Robotics with a specialization in Computer Science in Control and Management at the AGH University of Science and Technology in Krakow. My interests primarily lie in fields related to Data Science and Operational Research. This website hosts my portfolio and showcases more of my work.
           </p>
           <p className="text-lg mt-2">
             Check out my <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-500">CV</a> for more information, or explore the following sections:
