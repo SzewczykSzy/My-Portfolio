@@ -175,7 +175,7 @@ const About = () => {
                       <tr key={kom.id} className="hover:bg-gray-100 dark:hover:bg-gray-800">
                         <td className="px-6 py-4 text-yellow-500 text-xl">👑</td>
                         <td className="px-6 py-4 text-blue-500 dark:text-blue-300">
-                          <a href={`https://www.strava.com/activities/${kom.id}`} target="_blank" rel="noopener noreferrer">
+                          <a href={`https://www.strava.com/segments/${kom.id}`} target="_blank" rel="noopener noreferrer">
                             {kom.name}
                           </a>
                         </td>
