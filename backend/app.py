@@ -139,6 +139,7 @@ def fetch_strava_koms():
     client = Client()
 
     token_data = get_token()
+    
 
     if not token_data or time.time() > int(token_data['expires_at']):
         refresh_response = client.refresh_access_token(client_id=MY_STRAVA_CLIENT_ID, 
