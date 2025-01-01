@@ -25,7 +25,7 @@ REDIS_URL = os.getenv("REDIS_URL")
 REDIS_DB_PASSWORD = os.getenv("REDIS_DB_PASSWORD")
 
 
-redis_client = redis.Redis(host=REDIS_URL, port=11975, password=REDIS_DB_PASSWORD)
+redis_client = redis.Redis(host=REDIS_URL, port=11330, password=REDIS_DB_PASSWORD)
 
 
 def expires_to_seconds(expires_time_str):
@@ -235,5 +235,4 @@ def strava_last_activity():
 
 if __name__ == '__main__':
     app.run()
-    
     
