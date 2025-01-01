@@ -236,3 +236,4 @@ def strava_last_activity():
 if __name__ == '__main__':
     app.run()
     
+    
